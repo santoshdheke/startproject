@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'startproject.themenepal'),
+    'url' => env('URL', 'startproject.themenepal'),
     'admin_url' => env('ADMIN_URL', 'admin.startproject.themenepal'),
 
     'asset_url' => env('ASSET_URL'),
@@ -177,7 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        \Module\Admin\AdminServiceProvider::class,
+        \Module\Admin\CommonServiceProvider::class,
         \Module\Frontend\FrontendServiceProvider::class,
 
     ],
