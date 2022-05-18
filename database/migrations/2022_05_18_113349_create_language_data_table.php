@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_categories', function (Blueprint $table) {
+        Schema::create('language_data', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('language_id');
+            $table->string('key');
+            $table->string('value');
             $table->timestamps();
+
+            $table->foreign('language_id')->on('languages')->references('id')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_categories');
+        Schema::dropIfExists('language_data');
     }
 };
