@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "themenepal/startproject",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The Start Project For Themenepal.",
+    "keywords": ["framework", "themenepal"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -24,7 +24,6 @@
         "psr-4": {
             "App\\": "app/",
             "Module\\Admin\\": "module/admin/",
-            "Module\\Marketing\\": "module/marketing/",
             "Module\\Frontend\\": "module/frontend/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"

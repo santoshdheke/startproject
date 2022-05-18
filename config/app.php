@@ -54,9 +54,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://book-shop.padam'),
-    'admin_url' => env('ADMIN_URL', 'http://admin.book-shop.padam'),
-    'marketing_url' => env('MARKETING_URL', 'http://marketing.book-shop.padam'),
+    'url' => env('APP_URL', 'startproject.themenepal'),
+    'admin_url' => env('ADMIN_URL', 'admin.startproject.themenepal'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -180,7 +179,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         \Module\Admin\AdminServiceProvider::class,
         \Module\Frontend\FrontendServiceProvider::class,
-        \Module\Marketing\MarketingServiceProvider::class,
 
     ],
 
