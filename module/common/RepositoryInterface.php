@@ -1,5 +1,5 @@
 <?php
-namespace Module\Admin;
+namespace Module\Common;
 
 interface RepositoryInterface
 {

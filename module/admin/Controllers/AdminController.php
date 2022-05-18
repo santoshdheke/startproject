@@ -3,6 +3,8 @@
 namespace Module\Admin\Controllers;
 
 
+use Module\Common\Services\AdminService;
+
 class AdminController extends AdminBaseController
 {
     private $adminService;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Module\Admin\Services;
+namespace Module\Common\Services;
 
-use Module\Admin\Repositories\AdminRepository;
-use Module\Admin\Services;
+use Module\Common\Repositories\AdminRepository;
+use Module\Common\Services;
 
 class AdminService
 {

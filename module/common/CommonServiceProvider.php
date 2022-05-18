@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Admin;
+namespace Module\Common;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -16,8 +16,7 @@ class CommonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app('router')->aliasMiddleware('adminauth', AuthMiddleware::class);
-        app('router')->aliasMiddleware('adminguesh', GueshAuthMiddleware::class);
+        //
     }
 
     /**
@@ -27,15 +26,6 @@ class CommonServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/views/','adminview');
-        Route::domain(config('app.admin_url'))
-            ->middleware('web')
-            ->as('admin.')
-            ->namespace('Module\\Admin\\Controllers')
-            ->group(__DIR__.'/route.php');
-
-        /*Route::domain('pasapi.com')
-            ->namespace('Module\\Admin\\Controllers')
-            ->group(__DIR__.'/route.php');*/
+        //
     }
 }

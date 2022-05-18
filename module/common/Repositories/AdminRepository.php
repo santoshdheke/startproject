@@ -1,10 +1,10 @@
 <?php
 
-namespace Module\Admin\Repositories;
+namespace Module\Common\Repositories;
 
 
-use Module\Admin\Models\Admin;
-use Module\Admin\Repository;
+use Module\Common\Models\Admin;
+use Module\Common\Repository;
 
 class AdminRepository extends Repository
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Admin;
+namespace Module\Common;
 
 use Illuminate\Foundation\Application;
 

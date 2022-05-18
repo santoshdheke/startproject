@@ -45,11 +45,6 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-
-        'marketing' => [
-            'driver' => 'session',
-            'provider' => 'marketings',
-        ],
     ],
 
     /*
@@ -77,12 +72,7 @@ return [
 
         'admins' => [
             'driver' => 'eloquent',
-            'model' => \Module\Admin\Models\Admin::class,
-        ],
-
-        'marketings' => [
-            'driver' => 'eloquent',
-            'model' => \Module\Marketing\Models\Marketing::class,
+            'model' => \Module\Common\Models\Admin::class,
         ],
 
         // 'users' => [
