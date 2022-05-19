@@ -10,4 +10,5 @@ Route::group(['middleware' => 'adminguesh'],function(){
 Route::group(['middleware' => 'adminauth'],function(){
     Route::get('dashboard','DashboardController@index')->name('dashboard.index');
     Route::post('logout','AuthController@logout')->name('logout.post');
+    Route::resource('language','LanguageController');
 });

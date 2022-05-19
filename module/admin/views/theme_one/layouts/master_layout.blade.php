@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ callAdminStaticResources('dist/css/adminlte.min.css') }}">
+    <style>
+        .card-header-right{
+            float: right;
+            margin-top: -35px;
+        }
+    </style>
 </head>
 <!--
 `body` tag options:
@@ -128,12 +134,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard v3</h1>
+                        <h1 class="m-0">{{ $title ?? "Dashboard" }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v3</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
+                            <li class="breadcrumb-item active">{{ $title ?? "Dashboard" }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -178,5 +184,36 @@
 <script src="{{ callAdminStaticResources('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ callAdminStaticResources('dist/js/pages/dashboard3.js') }}"></script>
+
+
+<script src="{{ asset('static_asset/admin/theme_one/plugins/notify/sweetalert.min.js') }}"></script>
+
+<script>
+    @if(session('success'))
+    swal("Success!", "{{ session('success') }}", "success");
+    @endif
+
+    @if(session('error'))
+    swal("Sorry!", "{{ session('error') }}", "error");
+    @endif
+
+    $('.delete-btn').click(function () {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var id = $(this).data('id');
+                    $('#delete'+id).submit();
+                }
+            });
+    });
+</script>
+
+
 </body>
 </html>

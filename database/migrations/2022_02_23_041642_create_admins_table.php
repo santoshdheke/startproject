@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        \Module\Admin\Models\Admin::create([
+        \Module\Common\Models\Admin::create([
             'name' => 'Admin',
             'email' => 'admin@developer.com',
             'password' => bcrypt('password'),

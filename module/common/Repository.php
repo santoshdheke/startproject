@@ -25,9 +25,9 @@ abstract class Repository implements RepositoryInterface
         return $this->model->all($columns);
     }
 
-    public function paginate($limit = 15)
+    public function paginate($limit,$columns = array('*'))
     {
-        return $this->model->paginate($limit);
+        return $this->model->select($columns)->paginate($limit);
     }
 
     public function store(array $data)
@@ -42,7 +42,7 @@ abstract class Repository implements RepositoryInterface
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        return $this->model->find($id)->delete();
     }
 
     public function find($id, $columns = array('*'))

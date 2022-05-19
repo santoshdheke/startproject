@@ -3,38 +3,88 @@
 namespace Module\Common;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 trait Services
 {
-    private $adminRepository;
+    use ApiReturnJsonMessages;
+
+    private $repository;
+    private $title;
 
     public function getAll()
     {
-        return $this->adminRepository->all();
+        return $this->repository->all();
     }
 
-    public function store($data)
+    public function paginateData($count = 2)
     {
-        unset($data["_token"]);
-        $this->adminRepository->store($data);
+        return $this->repository->paginate($count);
     }
 
-    public function find($id)
+    public function store(Request $request)
     {
-        $bed=$this->adminRepository->findOrFail($id);
+        DB::beginTransaction();
+        $this->dataValidation($request);
+        try {
+            $fillable = $this->fillable($request);
+            $this->repository->store($fillable);
+            DB::commit();
+            return $this->successMessage($this->title.' create successful');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->returnServerError();
+        }
+    }
+
+    public function findById($id)
+    {
+        $bed=$this->repository->findOrFail($id);
         return $bed;
     }
 
-    public function update($data, $id)
+    public function update(Request $request, $id)
     {
-        $this->find($id);
-        $this->adminRepository->update($id,$data);
+        DB::beginTransaction();
+        $this->dataValidation($request,$id);
+        try {
+            $fillable = $this->fillable($request);
+            $this->repository->update($id,$fillable);
+            DB::commit();
+            return $this->successMessage($this->title.' update successful.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->returnServerError();
+        }
     }
 
     public function delete($id)
     {
-        $this->find($id);
-        $this->adminRepository->delete($id);
+        DB::beginTransaction();
+        try {
+            $this->repository->delete($id);
+            DB::commit();
+            return $this->successMessage($this->title.' delete successful.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->returnServerError();
+        }
+    }
+
+    public function dataValidation(Request $request,$id=null)
+    {
+//        $this->validate($request, []);
+    }
+
+    public function fillable(Request $request,$row = null)
+    {
+        $all = $request->all();
+        unset($all['_token']);
+        if (isset($all['_method'])){
+            unset($all['_method']);
+        }
+        return $all;
     }
 
 }
