@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+
+    # PHP Service
+    app:
+        image: php:8.1.6RC1-fpm-alpine
+        container_name: "${DOCKER_CONTAINER_PREFIX:-laravel}_app"
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./:/var/www
+        networks:
+            - appnet
+
+    # Nginx Service
+    nginx:
+        image: nginx:alpine
+        container_name: "${DOCKER_CONTAINER_PREFIX:-laravel}_nginx"
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "${DOCKER_NGINX_PORT:-82}:80"
+        volumes:
+            - ./:/var/www
+            - ./build/nginx/conf.d:/etc/nginx/conf.d:ro
+        networks:
+            - appnet
+
+    #### More Services here
+
+# Networks
+networks:
+    appnet:
+        driver: bridge

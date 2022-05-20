@@ -29,8 +29,7 @@ class FrontendServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/views/','frontendview');
 
-        Route::domain(config('app.url'))
-            ->middleware('web')
+        Route::middleware('web')
             ->namespace('Module\\Frontend\\Controllers')
             ->group(__DIR__.'/route.php');
 
