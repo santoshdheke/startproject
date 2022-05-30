@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \Module\Admin\AdminServiceProvider::class,
         \Module\Frontend\FrontendServiceProvider::class,
+        \Module\Developer\DeveloperServiceProvider::class,
 
     ],
 

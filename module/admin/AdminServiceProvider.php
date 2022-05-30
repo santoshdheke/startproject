@@ -28,14 +28,18 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/views/','adminview');
-        Route::domain(config('app.admin_url'))
+
+        Route::prefix('admin')
             ->middleware('web')
             ->as('admin.')
             ->namespace('Module\\Admin\\Controllers')
             ->group(__DIR__.'/route.php');
+//
+//        Route::domain(config('app.admin_url'))
+//            ->middleware('web')
+//            ->as('admin.')
+//            ->namespace('Module\\Admin\\Controllers')
+//            ->group(__DIR__.'/route.php');
 
-        /*Route::domain('pasapi.com')
-            ->namespace('Module\\Admin\\Controllers')
-            ->group(__DIR__.'/route.php');*/
     }
 }
