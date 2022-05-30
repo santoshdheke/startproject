@@ -26,11 +26,11 @@ class FolderController extends DeveloperBaseController
     public function store(Request $request)
     {
 
-//        $this->generationFolders($request);
-//        $this->makeRoute();
-//        $this->makeProvider();
-//        $this->makeView();
-//        $this->registerSystem();
+        $this->generationFolders($request);
+        $this->makeRoute();
+        $this->makeProvider();
+        $this->makeView();
+        $this->registerSystem();
 
         return redirect()->back()->with('success', 'Successfully added ' . ucfirst('table') . ' Folder');
     }
@@ -88,14 +88,16 @@ class FolderController extends DeveloperBaseController
     {
         $stub = base_path('config/app.php');
         $file = file_get_contents($stub);
-        $text = "App\\\\\": \"app/\",\n\t\t\t\"Module\\\\" . ucfirst(request('name')) . "\\\\\": \"module/" . strtolower(request('name')) . "/\",";
-        $file = str_replace('App\\\\": "app/",', $text, $file);
+
+        $text = "App\\Providers\\AppServiceProvider::class,\n\t\t";
+        $text .= "\\Module\\".ucfirst(request('name'))."\\".ucfirst(request('name'))."ServiceProvider::class,";
+        $file = str_replace('App\\Providers\\AppServiceProvider::class,', $text, $file);
 
         $path = base_path('config/app.php');
         $this->makeDirectory($path);
         file_put_contents($path, $file, 0);
         $this->filesPut($path, $file);
-        exec("composer dump-autoload");
+        exec("php artisan config:cache");
     }
 
     public function makeRoute()
