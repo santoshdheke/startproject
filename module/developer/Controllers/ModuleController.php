@@ -31,6 +31,12 @@ class ModuleController extends DeveloperBaseController
         return view(parent::__loadView('create'),compact('modules'));
     }
 
+    public function ajaxAddRow()
+    {
+        $uniqueid = uniqid('test');
+        return view(parent::__loadView('common.ajax_row'),compact('uniqueid'));
+    }
+
     public function store(Request $request)
     {
         $this->generationMigrationFile($request);
@@ -48,8 +54,17 @@ class ModuleController extends DeveloperBaseController
         $this->columns = "";
         foreach ($request->data as $data) {
 
+            if (in_array($data['type'],['id','created_at','updated_at'])){
+                continue;
+            }
+
             $column = strtolower(str_replace(' ','_',$data["column"]));
-            $new = '$table->'.$data['type'].'("'.$column.'")';
+
+            if ($data['length'] !== null && $data['length'] <= 255){
+                $new = '$table->'.$data['type'].'("'.$column.'", '.$data['length'].')';
+            }else{
+                $new = '$table->'.$data['type'].'("'.$column.'")';
+            }
 
             if ($data['unique'] == "1"){
                 $new .= '->unique()';
@@ -57,6 +72,14 @@ class ModuleController extends DeveloperBaseController
 
             if ($data['nullable'] == "1"){
                 $new .= '->nullable()';
+            }
+
+            if ($data['default'] !== null){
+                if (in_array($data['type'],['unsignedBigInteger','boolean'])){
+                    $new .= '->default('.$data['default'].')';
+                }else{
+                    $new .= '->default(\''.$data['default'].'\')';
+                }
             }
 
             $new .= ";\n\t\t\t";

@@ -26,11 +26,16 @@
         <tr>
             <th>Column</th>
             <th>Type</th>
+            <th>length</th>
+            <th>Default</th>
             <th>unique</th>
             <th>nullable</th>
+            <th>
+                <a href="javascript:void(0)" id="add_row" class="btn btn-xs btn-success"><i class="fa fa-plus"></i></a>
+            </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="new_row">
         <tr>
             <td>
                 <input type="text" class="form-control" name="data[0][column]">
@@ -45,6 +50,12 @@
                 </select>
             </td>
             <td>
+                <input type="number" class="form-control" name="data[0][length]">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="data[0][default]">
+            </td>
+            <td>
                 <input type="radio" name="data[0][unique]" value="1"> Yes
                 <input type="radio" name="data[0][unique]" checked value="0"> No
             </td>
@@ -52,29 +63,24 @@
                 <input type="radio" name="data[0][nullable]" value="1"> Yes
                 <input type="radio" name="data[0][nullable]" checked value="0"> No
             </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="text" class="form-control" name="data[1][column]">
-            </td>
-            <td>
-                <select name="data[1][type]" class="form-control">
-                    <option value="string">String</option>
-                    <option value="longText">Long Text</option>
-                    <option value="unsignedBigInteger">Integer</option>
-                    <option value="boolean">Boolean</option>
-                    <option value="enum">Enum</option>
-                </select>
-            </td>
-            <td>
-                <input type="radio" name="data[1][unique]" value="1"> Yes
-                <input type="radio" name="data[1][unique]" checked value="0"> No
-            </td>
-            <td>
-                <input type="radio" name="data[1][nullable]" value="1"> Yes
-                <input type="radio" name="data[1][nullable]" checked value="0"> No
-            </td>
+            <th>
+                <a href="javascript:void(0)" class="btn btn-xs btn-danger delete_row"><i class="fa fa-minus"></i></a>
+            </th>
         </tr>
         </tbody>
     </table>
 </div>
+
+@push('js')
+    <script>
+        $('#add_row').click(function () {
+            $.get('{{ url('developer/themenepal/module/ajax/add/row') }}',function(html){
+                $('#new_row').append(html);
+            });
+        });
+
+        $(document).on('click', '.delete_row', function () {
+            $(this).parent().parent().remove();
+        });
+    </script>
+@endpush
