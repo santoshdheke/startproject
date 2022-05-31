@@ -30,6 +30,7 @@ class FolderController extends DeveloperBaseController
         $this->makeRoute();
         $this->makeProvider();
         $this->makeView();
+        $this->makeControllers();
         $this->registerSystem();
 
         return redirect()->back()->with('success', 'Successfully added ' . ucfirst('table') . ' Folder');
@@ -37,12 +38,20 @@ class FolderController extends DeveloperBaseController
 
     public function generationFolders(Request $request)
     {
-        mkdir(base_path('module/' . strtolower(request('name'))));
-        mkdir(base_path('module/' . strtolower(request('name')) . '/Controllers'));
-        mkdir(base_path('module/' . strtolower(request('name')) . '/views'));
-        mkdir(base_path('module/' . strtolower(request('name')) . '/views/theme_one'));
-        mkdir(base_path('module/' . strtolower(request('name')) . '/views/theme_one/layouts'));
-        mkdir(base_path('module/' . strtolower(request('name')) . '/views/theme_one/particle'));
+        $this->makeDir(base_path('module/' . strtolower(request('name'))));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/Controllers'));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/views'));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/views/theme_one'));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/views/theme_one/layouts'));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/views/theme_one/particle'));
+        $this->makeDir(base_path('module/' . strtolower(request('name')) . '/views/theme_one/dashboard'));
+    }
+
+    public function makeDir($path)
+    {
+        if (!file_exists($path)){
+            mkdir(mkdir($path),777);
+        }
     }
 
     public function makeView()
@@ -57,6 +66,13 @@ class FolderController extends DeveloperBaseController
         $stub = __DIR__ . '/stubs/views/sidebar.blade.stub';
         $file = file_get_contents($stub);
         $path = base_path('module/' . strtolower(request('name')) . '/views/theme_one/particle/sidebar.blade.php');
+        $this->makeDirectory($path);
+        file_put_contents($path, $file, 0);
+        $this->filesPut($path, $file);
+
+        $stub = __DIR__ . '/stubs/views/dashboard.blade.stub';
+        $file = file_get_contents($stub);
+        $path = base_path('module/' . strtolower(request('name')) . '/views/theme_one/dashboard/index.blade.php');
         $this->makeDirectory($path);
         file_put_contents($path, $file, 0);
         $this->filesPut($path, $file);
@@ -122,6 +138,34 @@ class FolderController extends DeveloperBaseController
         $file = str_replace('{{smalltitle}}', strtolower(request('name')), $file);
 
         $path = base_path('module/' . strtolower(request('name')) . '/' . ucfirst(request('name')) . 'ServiceProvider.php');
+        $this->makeDirectory($path);
+        file_put_contents($path, $file, 0);
+        $this->filesPut($path, $file);
+
+        return true;
+    }
+
+    public function makeControllers()
+    {
+        $stub = __DIR__ . '/stubs/basecontroller.module.stub';
+        $file = file_get_contents($stub);
+
+        $file = str_replace('{{bigtitle}}', ucfirst(request('name')), $file);
+        $file = str_replace('{{smalltitle}}', strtolower(request('name')), $file);
+
+        $path = base_path('module/' . strtolower(request('name')) . '/Controllers/' . ucfirst(request('name')) . 'BaseController.php');
+        $this->makeDirectory($path);
+        file_put_contents($path, $file, 0);
+        $this->filesPut($path, $file);
+
+        $stub = __DIR__ . '/stubs/controller.module.stub';
+        $file = file_get_contents($stub);
+
+        $file = str_replace('{{bigtitle}}', "Dashboard", $file);
+        $file = str_replace('{{smalltitle}}', "dashboard", $file);
+        $file = str_replace('{{module}}', ucfirst(request('name')), $file);
+
+        $path = base_path('module/' . strtolower(request('name')) . '/Controllers/' . 'DashboardController.php');
         $this->makeDirectory($path);
         file_put_contents($path, $file, 0);
         $this->filesPut($path, $file);

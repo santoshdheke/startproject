@@ -24,8 +24,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-			"Module\\Roshan\\": "module/roshan/",
-            "Module\\Admin\\": "module/admin/",
+			"Module\\Admin\\": "module/admin/",
             "Module\\Developer\\": "module/developer/",
             "Module\\Common\\": "module/common/",
             "Module\\Frontend\\": "module/frontend/",

@@ -1,14 +1,14 @@
 <?php
 
-namespace Module\Admin\Controllers;
+namespace Module\{{bigtitle}}\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 
 
-class AdminBaseController extends Controller
+class {{bigtitle}}BaseController extends Controller
 {
-    public $theme_path = 'adminview::theme_one';
+    public $theme_path = '{{smalltitle}}view::theme_one';
     public $view_path = 'crud';
     public $title = "Dashboard";
     public $base_route;
@@ -20,7 +20,7 @@ class AdminBaseController extends Controller
             $view->with('theme_path', $this->theme_path);
             $view->with('view_path', $this->theme_path.'.'.$this->view_path.'.');
             $view->with('title', $this->title);
-            $view->with('base_route', 'admin.'.$this->base_route.'.');
+            $view->with('base_route', '{{smalltitle}}.'.$this->base_route.'.');
         });
         return $view;
     }
@@ -36,7 +36,7 @@ class AdminBaseController extends Controller
         }
 
         if ($request->save) {
-            return redirect()->route('admin.' . $this->base_route . '.index')->with('success', $this->title . ' Update Successful.');
+            return redirect()->route('{{smalltitle}}.' . $this->base_route . '.index')->with('success', $this->title . ' Update Successful.');
         }
         return redirect()->back()->with('success', $this->title . ' Update Successful.');
     }

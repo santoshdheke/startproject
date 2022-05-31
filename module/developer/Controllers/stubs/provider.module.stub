@@ -24,7 +24,7 @@ class {{bigtitle}}ServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/views/','{{smalltitle}}');
+        $this->loadViewsFrom(__DIR__.'/views/','{{smalltitle}}view');
 
         Route::prefix('{{smalltitle}}')
             ->middleware('web')
